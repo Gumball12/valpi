@@ -19,13 +19,34 @@ provider:
         - dynamodb:DeleteItem
 
 functions:
-  hello:
-    handler: handler.hello
+  get-value:
+    handler: handler.get
     events:
       -
         http:
-          path: hello
+          path: /{name}
           method: get
+  create-value:
+    handler: handler.create
+    events:
+      -
+        http:
+          path: /{name}
+          method: post
+  update-value:
+    handler: handler.update
+    events:
+      -
+        http:
+          path: /{name}
+          method: update
+  delete-value:
+    handler: handler.delete
+    events:
+      -
+        http:
+          path: /{name}
+          method: delete
 
 resources:
   Resource:
