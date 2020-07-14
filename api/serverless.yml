@@ -1,0 +1,46 @@
+service: valpi
+app: valpi
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ap-northeast-2
+  iamRoleStatements:
+    -
+      Effect: Allow
+      Resource: "*"
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      -
+        http:
+          path: hello
+          method: get
+
+resources:
+  Resource:
+    datas:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: datas
+        AttributeDefinitions:
+          -
+            AttributeName: name
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: name
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
