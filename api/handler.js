@@ -5,20 +5,28 @@ const uuidv4 = require('uuid').v4;
 const _ = require('lodash');
 
 const isValidBody = require('./utils/bodyChecker');
+const respGen = require('./utils/responseGenerator');
 
-module.exports.get = async (evt) => ({
-  statusCode: 200,
-  body: JSON.stringify(evt.pathParameters),
-});
+const resp = {
+  '200-gen': (key) => respGen(200, `value created :: private key (for update/delete) => ${key}`),
+  '400-param': respGen(400, 'wrong parameters (please check https://git.io/JJs5T)'),
+  '400-body-type': respGen(400, 'wrong request body type (please use application/json format)'),
+  '403-exists-name': respGen(403, 'already exists name (change your value name)'),
+  '500-ise': respGen(500, 'internal server error, sorry :('),
+};
+
+module.exports.get = async ({ pathParameters }) => {
+  // check params
+  if (!isValidBody(pathParameters, 'name')) {
+    return resp['400-param'];
+  }
+};
 
 module.exports.create = async ({ pathParameters, body }) => {
   try {
     body = JSON.parse(body);
   } catch {
-    return {
-      statusCode: 400,
-      body: 'wrong request body type (please use application/json format)',
-    };
+    return resp['400-body-type'];
   }
 
   // check params
@@ -26,10 +34,7 @@ module.exports.create = async ({ pathParameters, body }) => {
     !isValidBody(body, 'value') ||
     !isValidBody(pathParameters, 'name')
   ) {
-    return {
-      statusCode: 400,
-      body: 'wrong parameters (please check https://git.io/JJs5T)',
-    };
+    return resp['400-param'];
   }
 
   // get param values
@@ -42,18 +47,12 @@ module.exports.create = async ({ pathParameters, body }) => {
       TableName: 'valpi-datas',
       Key: { name },
     }).promise());
-  
+
     if (isAlreadyExists) {
-      return {
-        statusCode: 403,
-        body: 'already exists name (change your value name)',
-      };
+      return resp['403-exists-name'];
     }
   } catch {
-    return {
-      statusCode: 500,
-      body: 'internal server error, sorry :(',
-    };
+    return resp['500-ise'];
   }
 
   // create value
@@ -69,16 +68,10 @@ module.exports.create = async ({ pathParameters, body }) => {
       },
     }).promise();
   } catch {
-    return {
-      statusCode: 500,
-      body: 'internal server error, sorry :(',
-    };
+    return resp['500-ise'];
   }
 
-  return {
-    statusCode: 200,
-    body: `value created :: private key (for update/delete) => ${key}`,
-  };
+  return resp['200-gen'](key);
 };
 
 module.exports.update = async (evt) => ({
