@@ -53,7 +53,7 @@ resources:
     datas:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: datas
+        TableName: valpi-datas
         AttributeDefinitions:
           -
             AttributeName: name
