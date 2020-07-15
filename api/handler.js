@@ -8,7 +8,8 @@ const isValidBody = require('./utils/bodyChecker');
 const respGen = require('./utils/responseGenerator');
 
 const resp = {
-  '200-gen': (key) => respGen(200, `value created :: private key (for update/delete) => ${key}`),
+  '200-create': (key) => respGen(200, `value created :: private key (for update/delete) => ${key}`),
+  '200-get': (data) => respGen(200, data),
   '400-param': respGen(400, 'wrong parameters (please check https://git.io/JJs5T)'),
   '400-body-type': respGen(400, 'wrong request body type (please use application/json format)'),
   '403-exists-name': respGen(403, 'already exists name (change your value name)'),
@@ -16,9 +17,24 @@ const resp = {
 };
 
 module.exports.get = async ({ pathParameters }) => {
-  // check params
+  // check param
   if (!isValidBody(pathParameters, 'name')) {
     return resp['400-param'];
+  }
+
+  // get param value
+  const { name } = pathParameters;
+
+  // get value
+  try {
+    const data = await db.get({
+      TableName: 'valpi-datas',
+      Key: { name },
+    }).promise();
+
+    return resp['200-get'](data.Item.value);
+  } catch {
+    return resp['500-ise'];
   }
 };
 
@@ -71,7 +87,7 @@ module.exports.create = async ({ pathParameters, body }) => {
     return resp['500-ise'];
   }
 
-  return resp['200-gen'](key);
+  return resp['200-create'](key);
 };
 
 module.exports.update = async (evt) => ({
