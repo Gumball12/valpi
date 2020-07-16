@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "mocha": "^8.0.1",
+    "serverless-domain-manager": "^4.2.0",
     "serverless-offline": "^6.4.0"
   },
   "dependencies": {

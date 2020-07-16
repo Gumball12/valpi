@@ -3,11 +3,20 @@ app: valpi
 
 plugins:
   - serverless-offline
+  - serverless-domain-manager
+
+custom:
+  customDomain:
+    domainName: api.valpi.cc
+    basePath: ''
+    stage: ${self:provider.stage}
+    createRoute53Record: true
 
 provider:
   name: aws
   runtime: nodejs12.x
   region: ap-northeast-2
+  stage: dev
   iamRoleStatements:
     -
       Effect: Allow
