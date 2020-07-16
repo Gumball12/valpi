@@ -9,8 +9,8 @@ api that returns value
 method|path|response|description
 -|-|-|-
 GET|`/:name`|`<value>`|get value
-POST|`/:name?value=<value>`|`<key>`|create vlaue
-UPDATE|`/:name?value=<value>&key=<key>`|`<value>`|update value
+PUT|`/:name?value=<value>`|`<key>`|create vlaue
+POST|`/:name?value=<value>&key=<key>`|`<value>`|update value
 DELETE|`/:name?key=<key>`|`String`|delete value
 
 ## nosql scheme
