@@ -34,7 +34,11 @@ module.exports.get = async ({ pathParameters }) => {
       Key: { name },
     }).promise();
 
-    return resp['200-get'](data.Item.value);
+    if (_.isEmpty(data)) {
+      return resp['200-get']({ }); // empty
+    } else {
+      return resp['200-get'](data.Item.value);
+    }
   } catch {
     return resp['500-ise'];
   }
@@ -143,7 +147,50 @@ module.exports.update = async ({ pathParameters, body }) => {
   return resp['200-get'](value);
 };
 
-module.exports.delete = async (evt) => ({
-  statusCode: 200,
-  body: 'delete',
-});
+module.exports.delete = async ({ pathParameters, body }) => {
+  try {
+    body = JSON.parse(body);
+  } catch {
+    return resp['400-body-type'];
+  }
+
+  // check params
+  if (
+    !isValidBody(body, 'key') ||
+    !isValidBody(pathParameters, 'name')
+  ) {
+    return resp['400-param'];
+  }
+
+  // get param value
+  const { name } = pathParameters;
+  const { key } = body;
+
+  try {
+    // get data
+    const data = await db.get({
+      TableName: 'valpi-datas',
+      Key: { name },
+    }).promise();
+
+    // check value data exists
+    if (_.isEmpty(data)) {
+      return resp['403-no-exists-name'];
+    }
+
+    // check key
+    if (data.Item.key !== key) {
+      return resp['403-wrong-key'];
+    }
+
+    // delete value
+    await db.delete({
+      TableName: 'valpi-datas',
+      Key: { name },
+    }).promise();
+  } catch {
+    return resp['500-ise'];
+  }
+
+  return resp['200-get'](`delete '${name}'`);
+};
