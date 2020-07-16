@@ -34,8 +34,8 @@ module.exports.get = async ({ pathParameters }) => {
       Key: { name },
     }).promise();
 
-    if (_.isEmpty(data)) {
-      return resp['200-get']({ }); // empty
+    if (_.isEmpty(data.Item)) {
+      return resp['200-get'](JSON.stringify({ })); // empty
     } else {
       return resp['200-get'](data.Item.value);
     }
