@@ -9,8 +9,8 @@ api that returns value
 method|path|response|description
 -|-|-|-
 GET|`/:name`|`<value>`|get value
-PUT|`/:name?value=<value>`|`<key>`|create vlaue
-POST|`/:name?value=<value>&key=<key>`|`<value>`|update value
+POST|`/:name?value=<value>`|`<key>`|create vlaue
+PATCH|`/:name?value=<value>&key=<key>`|`<value>`|update value
 DELETE|`/:name?key=<key>`|`String`|delete value
 
 ### errors
