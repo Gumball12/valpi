@@ -21,5 +21,9 @@ export default Vue.extend({
   ::v-deep .v-input__slot fieldset {
     border: 3px solid #000;
   }
+
+  ::v-deep input {
+    letter-spacing: 0.25em;
+  }
 }
 </style>
