@@ -37,7 +37,7 @@ module.exports.get = async ({ pathParameters }) => {
     if (_.isEmpty(data.Item)) {
       return resp['200-get'](JSON.stringify({ })); // empty
     } else {
-      return resp['200-get'](data.Item.value);
+      return resp['200-get'](JSON.stringify(data.Item.value));
     }
   } catch {
     return resp['500-ise'];
