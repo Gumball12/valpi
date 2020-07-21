@@ -1,7 +1,9 @@
 <template>
-  <span :style="setColor" @click="$emit('click', $event)">
-    <slot />
-  </span>
+  <div class="text-button">
+    <span :style="setColor" @click="$emit('click', $event)">
+      <slot />
+    </span>
+  </div>
 </template>
 
 <script lang="ts">
@@ -27,7 +29,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 @import '@gumball12/sass-text-stroke/_text-stroke.scss'; // text-stroke procedure
 
-span {
+div.text-button span {
   @include text-stroke(3, #000);
 
   font-size: 24px;

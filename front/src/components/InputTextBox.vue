@@ -1,5 +1,6 @@
 <template>
-  <v-text-field color="dark" outlined @input="$emit('input', $event)">
+  <v-text-field color="dark" outlined
+    @input="$emit('input', $event)" :placeholder="placeholder">
     <v-icon slot="append" color="red" v-text="appendIcon" />
   </v-text-field>
 </template>
@@ -10,6 +11,9 @@ import Vue from 'vue';
 export default Vue.extend({
   props: {
     appendIcon: {
+      type: String,
+    },
+    placeholder: {
       type: String,
     },
   },
