@@ -838,6 +838,11 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@gumball12/sass-text-stroke@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@gumball12/sass-text-stroke/-/sass-text-stroke-1.0.2.tgz#a2cfc7c4916c04ed4af81568c784b54c5d9126fc"
+  integrity sha512-qj35MR9D5M6mf7CkoXoWu3xDn/rJHbpjJVvebn26GtldlfHHgQXpwGKdoeLB+uS4JSm2ZElp5Mv7//XUPbOXbQ==
+
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "https://registry.npm.taobao.org/@hapi/address/download/@hapi/address-2.1.4.tgz?cache=0&sync_timestamp=1593993857635&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40hapi%2Faddress%2Fdownload%2F%40hapi%2Faddress-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"
