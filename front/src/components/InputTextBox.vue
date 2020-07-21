@@ -18,8 +18,8 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .v-input {
-  ::v-deep .v-input__slot {
-    border: 3px solid;
+  ::v-deep .v-input__slot fieldset {
+    border: 3px solid #000;
   }
 }
 </style>
