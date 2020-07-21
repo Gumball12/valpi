@@ -10,6 +10,8 @@
       <h1>input-text-box</h1>
       <input-text-box append-icon="mdi-close" v-model="inputTextBoxValue" />
       <p><span>value: </span>{{ inputTextBoxValue }}</p>
+
+      <router-view />
     </v-main>
   </v-app>
 </template>
