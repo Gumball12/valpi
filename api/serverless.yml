@@ -41,14 +41,14 @@ functions:
       -
         http:
           path: /{name}
-          method: put
+          method: post
   update-value:
     handler: handler.update
     events:
       -
         http:
           path: /{name}
-          method: post
+          method: patch
   delete-value:
     handler: handler.delete
     events:
