@@ -2556,6 +2556,11 @@ coa@^2.0.2:
     chalk "^2.4.1"
     q "^1.1.2"
 
+codemirror@^5.56.0:
+  version "5.56.0"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.56.0.tgz#675640fcc780105cd22d3faa738b5d7ea6426f61"
+  integrity sha512-MfKVmYgifXjQpLSgpETuih7A7WTTIsxvKfSLGseTY5+qt0E1UD1wblZGM6WLenORo8sgmf+3X+WTe2WF7mufyw==
+
 collection-visit@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/collection-visit/download/collection-visit-1.0.0.tgz#4bc0373c164bc3291b4d368c829cf1a80a59dca0"
@@ -4633,6 +4638,11 @@ hex-color-regex@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npm.taobao.org/hex-color-regex/download/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha1-TAb8y0YC/iYCs8k9+C1+fb8aio4=
+
+highlight.js@^10.1.1:
+  version "10.1.1"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-10.1.1.tgz#691a2148a8d922bf12e52a294566a0d993b94c57"
+  integrity sha512-b4L09127uVa+9vkMgPpdUQP78ickGbHEQTWeBrQFTJZ4/n2aihWOGS0ZoUqAwjVmfjhq/C76HRzkqwZhK4sBbg==
 
 highlight.js@^9.6.0:
   version "9.18.1"
@@ -9126,11 +9136,6 @@ vue-property-decorator@^8.4.2:
   integrity sha1-VxqRz40rUH9TfXm/gnWvMYRXL/8=
   dependencies:
     vue-class-component "^7.1.0"
-
-vue-router@^3.2.0:
-  version "3.3.4"
-  resolved "https://registry.npm.taobao.org/vue-router/download/vue-router-3.3.4.tgz?cache=0&sync_timestamp=1594111718735&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue-router%2Fdownload%2Fvue-router-3.3.4.tgz#4e38abc34a11c41b6c3d8244449a2e363ba6250b"
-  integrity sha1-Tjirw0oRxBtsPYJERJouNjumJQs=
 
 vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   version "4.1.2"
