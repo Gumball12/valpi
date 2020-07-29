@@ -5,11 +5,21 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    originCode: '',
+    code: '',
   },
   mutations: {
+    updateCode(state, code: string) {
+      state.code = code;
+    },
+    updateOriginCode(state, code: string) {
+      state.originCode = code;
+    },
   },
   actions: {
-  },
-  modules: {
+    init(ctx, code: string) {
+      ctx.commit('updateCode', code);
+      ctx.commit('updateOriginCode', code);
+    },
   },
 });

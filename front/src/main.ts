@@ -2,14 +2,17 @@ import Vue from 'vue';
 import App from './App.vue';
 import './registerServiceWorker';
 import store from './store';
-import router from './router';
 import vuetify from './plugins/vuetify';
 
 Vue.config.productionTip = false;
 
-new Vue({
-  store,
-  vuetify,
-  router,
-  render: (h) => h(App),
-}).$mount('#app');
+(async () => {
+  const data = await (await fetch('https://api.valpi.cc/test2')).text();
+  store.dispatch('init', JSON.parse(data));
+
+  new Vue({
+    store,
+    vuetify,
+    render: (h) => h(App),
+  }).$mount('#app');
+})();
