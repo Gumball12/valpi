@@ -9,4 +9,8 @@
 module.exports = (statusCode, msg) => ({
   statusCode,
   body: msg,
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Credentials': true,
+  },
 });
