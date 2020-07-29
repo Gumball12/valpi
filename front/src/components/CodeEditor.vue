@@ -4,8 +4,7 @@
     width="100%" height="calc(100vh - 62px)" rounded>
     <v-container class="pt-12">
       <codemirror
-        ref="codemirror" :options="options"
-        v-model="code" @input="updateFormat" />
+        ref="codemirror" :options="options" v-model="code" />
     </v-container>
   </v-sheet>
 </template>
@@ -13,13 +12,14 @@
 <script lang="ts">
 import Vue from 'vue';
 
+import { mapState, mapMutations } from 'vuex';
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import { codemirror } from 'vue-codemirror';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/blackboard.css';
 import 'codemirror/mode/javascript/javascript';
-import 'codemirror/mode/yaml/yaml';
 
 export default Vue.extend({
   components: { codemirror },
@@ -39,14 +39,18 @@ export default Vue.extend({
     codemirror(): codemirror {
       return (this.$refs.codemirror as codemirror).codemirror;
     },
-    isJson(): boolean {
-      return this.code.startsWith('{');
-    },
+    ...mapState(['originCode']),
   },
   methods: {
-    updateFormat() {
-      this.codemirror.setOption('mode', this.isJson ? 'application/json' : 'yaml');
+    ...mapMutations(['updateCode']),
+  },
+  watch: {
+    code(code: string) {
+      this.updateCode(code);
     },
+  },
+  mounted() {
+    this.code = this.originCode;
   },
 });
 </script>
