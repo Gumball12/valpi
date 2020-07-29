@@ -11,12 +11,14 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "@gumball12/sass-text-stroke": "^1.0.2",
+    "codemirror": "^5.56.0",
     "core-js": "^3.6.5",
+    "highlight.js": "^10.1.1",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
+    "vue-codemirror": "^4.0.6",
     "vue-property-decorator": "^8.4.2",
-    "vue-router": "^3.2.0",
     "vuetify": "^2.2.11",
     "vuex": "^3.4.0"
   },
