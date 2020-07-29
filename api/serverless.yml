@@ -35,6 +35,7 @@ functions:
         http:
           path: /{name}
           method: get
+          cors: true
   create-value:
     handler: handler.create
     events:
@@ -42,6 +43,7 @@ functions:
         http:
           path: /{name}
           method: post
+          cors: true
   update-value:
     handler: handler.update
     events:
@@ -49,6 +51,7 @@ functions:
         http:
           path: /{name}
           method: patch
+          cors: true
   delete-value:
     handler: handler.delete
     events:
@@ -56,6 +59,7 @@ functions:
         http:
           path: /{name}
           method: delete
+          cors: true
 
 resources:
   Resources:
