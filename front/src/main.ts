@@ -6,8 +6,13 @@ import vuetify from './plugins/vuetify';
 
 Vue.config.productionTip = false;
 
-new Vue({
-  store,
-  vuetify,
-  render: (h) => h(App),
-}).$mount('#app');
+(async () => {
+  const data = await (await fetch('https://api.valpi.cc/test2')).text();
+  store.dispatch('init', JSON.parse(data));
+
+  new Vue({
+    store,
+    vuetify,
+    render: (h) => h(App),
+  }).$mount('#app');
+})();
