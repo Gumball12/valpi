@@ -35,9 +35,9 @@ module.exports.get = async ({ pathParameters }) => {
     }).promise();
 
     if (_.isEmpty(data.Item)) {
-      return resp['200-get'](JSON.stringify({ })); // empty
+      return resp['403-no-exists-name']; // empty
     } else {
-      return resp['200-get'](JSON.stringify(data.Item.value));
+      return resp['200-get'](data.Item.value);
     }
   } catch {
     return resp['500-ise'];
@@ -86,7 +86,7 @@ module.exports.create = async ({ pathParameters, body }) => {
       Item: {
         name,
         key,
-        value,
+        value: JSON.stringify(value),
       },
     }).promise();
   } catch {
@@ -138,13 +138,13 @@ module.exports.update = async ({ pathParameters, body }) => {
       Key: { name },
       UpdateExpression: 'set #v = :v',
       ExpressionAttributeNames: { '#v': 'value' },
-      ExpressionAttributeValues: { ':v': value },
+      ExpressionAttributeValues: { ':v': JSON.stringify(value) },
     }).promise();
   } catch {
     return resp['500-ise'];
   }
 
-  return resp['200-get'](value);
+  return resp['200-get'](JSON.stringify(value));
 };
 
 module.exports.delete = async ({ pathParameters, body }) => {
