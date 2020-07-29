@@ -12,5 +12,6 @@ module.exports = (statusCode, msg) => ({
   headers: {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Credentials': true,
+    'Content-Type': 'text',
   },
 });

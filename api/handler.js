@@ -6,6 +6,7 @@ const _ = require('lodash');
 
 const isValidBody = require('./utils/bodyChecker');
 const respGen = require('./utils/responseGenerator');
+const jsonParseable = require('./utils/jsonParseable');
 
 const resp = {
   '200-create': (key) => respGen(200, `value created :: private key (for update/delete) => ${key}`),
@@ -37,7 +38,9 @@ module.exports.get = async ({ pathParameters }) => {
     if (_.isEmpty(data.Item)) {
       return resp['403-no-exists-name']; // empty
     } else {
-      return resp['200-get'](data.Item.value);
+      const { value } = data.Item;
+
+      return resp['200-get'](value);
     }
   } catch {
     return resp['500-ise'];
@@ -45,9 +48,9 @@ module.exports.get = async ({ pathParameters }) => {
 };
 
 module.exports.create = async ({ pathParameters, body }) => {
-  try {
+  if (jsonParseable(body)) {
     body = JSON.parse(body);
-  } catch {
+  } else {
     return resp['400-body-type'];
   }
 
@@ -61,7 +64,9 @@ module.exports.create = async ({ pathParameters, body }) => {
 
   // get param values
   const { name } = pathParameters;
-  const { value } = body;
+  let { value } = body;
+
+  value = jsonParseable(value) ? value : JSON.stringify(value);
 
   try {
     // check name
@@ -86,7 +91,7 @@ module.exports.create = async ({ pathParameters, body }) => {
       Item: {
         name,
         key,
-        value: JSON.stringify(value),
+        value: value,
       },
     }).promise();
   } catch {
@@ -97,9 +102,9 @@ module.exports.create = async ({ pathParameters, body }) => {
 };
 
 module.exports.update = async ({ pathParameters, body }) => {
-  try {
+  if (jsonParseable(body)) {
     body = JSON.parse(body);
-  } catch {
+  } else {
     return resp['400-body-type'];
   }
 
@@ -113,7 +118,10 @@ module.exports.update = async ({ pathParameters, body }) => {
 
   // get param value
   const { name } = pathParameters;
-  const { value, key } = body;
+  const { key } = body;
+  let { value } = body;
+
+  value = jsonParseable(value) ? value : JSON.stringify(value);
 
   try {
     // get data
@@ -138,7 +146,7 @@ module.exports.update = async ({ pathParameters, body }) => {
       Key: { name },
       UpdateExpression: 'set #v = :v',
       ExpressionAttributeNames: { '#v': 'value' },
-      ExpressionAttributeValues: { ':v': JSON.stringify(value) },
+      ExpressionAttributeValues: { ':v': value },
     }).promise();
   } catch {
     return resp['500-ise'];
@@ -148,9 +156,9 @@ module.exports.update = async ({ pathParameters, body }) => {
 };
 
 module.exports.delete = async ({ pathParameters, body }) => {
-  try {
+  if (jsonParseable(body)) {
     body = JSON.parse(body);
-  } catch {
+  } else {
     return resp['400-body-type'];
   }
 
