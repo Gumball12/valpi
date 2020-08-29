@@ -1,0 +1,12 @@
+{
+  "name": "valpi",
+  "version": "1.0.0",
+  "description": "api that returns value",
+  "repository": "https://github.com/Gumball12/valpi.git",
+  "author": "shj <kan02134@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "workspaces/*"
+  ]
+}
