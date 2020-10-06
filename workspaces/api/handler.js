@@ -19,26 +19,34 @@ const resp = {
   '500-ise': respGen(500, 'internal server error, sorry :('),
 };
 
-module.exports.get = async ({ pathParameters }) => {
+module.exports.get = async ({
+  pathParameters
+}) => {
   // check param
   if (!isValidBody(pathParameters, 'name')) {
     return resp['400-param'];
   }
 
   // get param value
-  const { name } = pathParameters;
+  const {
+    name
+  } = pathParameters;
 
   // get value
   try {
     const data = await db.get({
       TableName: 'valpi-datas',
-      Key: { name },
+      Key: {
+        name
+      },
     }).promise();
 
     if (_.isEmpty(data.Item)) {
       return resp['403-no-exists-name']; // empty
     } else {
-      const { value } = data.Item;
+      const {
+        value
+      } = data.Item;
 
       return resp['200-get'](value);
     }
@@ -47,7 +55,10 @@ module.exports.get = async ({ pathParameters }) => {
   }
 };
 
-module.exports.create = async ({ pathParameters, body }) => {
+module.exports.create = async ({
+  pathParameters,
+  body
+}) => {
   if (jsonParseable(body)) {
     body = JSON.parse(body);
   } else {
@@ -63,16 +74,22 @@ module.exports.create = async ({ pathParameters, body }) => {
   }
 
   // get param values
-  const { name } = pathParameters;
-  let { value } = body;
+  const {
+    name
+  } = pathParameters;
+  let {
+    value
+  } = body;
 
-  value = jsonParseable(value) ? value : JSON.stringify(value);
+  value = jsonParseable(value) ? JSON.stringify(value) : value;
 
   try {
     // check name
     const isAlreadyExists = !_.isEmpty(await db.get({
       TableName: 'valpi-datas',
-      Key: { name },
+      Key: {
+        name
+      },
     }).promise());
 
     if (isAlreadyExists) {
@@ -101,7 +118,10 @@ module.exports.create = async ({ pathParameters, body }) => {
   return resp['200-create'](key);
 };
 
-module.exports.update = async ({ pathParameters, body }) => {
+module.exports.update = async ({
+  pathParameters,
+  body
+}) => {
   if (jsonParseable(body)) {
     body = JSON.parse(body);
   } else {
@@ -117,17 +137,25 @@ module.exports.update = async ({ pathParameters, body }) => {
   }
 
   // get param value
-  const { name } = pathParameters;
-  const { key } = body;
-  let { value } = body;
+  const {
+    name
+  } = pathParameters;
+  const {
+    key
+  } = body;
+  let {
+    value
+  } = body;
 
-  value = jsonParseable(value) ? value : JSON.stringify(value);
+  value = jsonParseable(value) ? JSON.stringify(value) : value;
 
   try {
     // get data
     const data = await db.get({
       TableName: 'valpi-datas',
-      Key: { name },
+      Key: {
+        name
+      },
     }).promise();
 
     // check value data exists
@@ -143,10 +171,16 @@ module.exports.update = async ({ pathParameters, body }) => {
     // update value
     await db.update({
       TableName: 'valpi-datas',
-      Key: { name },
+      Key: {
+        name
+      },
       UpdateExpression: 'set #v = :v',
-      ExpressionAttributeNames: { '#v': 'value' },
-      ExpressionAttributeValues: { ':v': value },
+      ExpressionAttributeNames: {
+        '#v': 'value'
+      },
+      ExpressionAttributeValues: {
+        ':v': value
+      },
     }).promise();
   } catch {
     return resp['500-ise'];
@@ -155,7 +189,10 @@ module.exports.update = async ({ pathParameters, body }) => {
   return resp['200-get'](JSON.stringify(value));
 };
 
-module.exports.delete = async ({ pathParameters, body }) => {
+module.exports.delete = async ({
+  pathParameters,
+  body
+}) => {
   if (jsonParseable(body)) {
     body = JSON.parse(body);
   } else {
@@ -171,14 +208,20 @@ module.exports.delete = async ({ pathParameters, body }) => {
   }
 
   // get param value
-  const { name } = pathParameters;
-  const { key } = body;
+  const {
+    name
+  } = pathParameters;
+  const {
+    key
+  } = body;
 
   try {
     // get data
     const data = await db.get({
       TableName: 'valpi-datas',
-      Key: { name },
+      Key: {
+        name
+      },
     }).promise();
 
     // check value data exists
@@ -194,7 +237,9 @@ module.exports.delete = async ({ pathParameters, body }) => {
     // delete value
     await db.delete({
       TableName: 'valpi-datas',
-      Key: { name },
+      Key: {
+        name
+      },
     }).promise();
   } catch {
     return resp['500-ise'];

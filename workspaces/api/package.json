@@ -1,4 +1,7 @@
 {
+  "name": "api",
+  "version": "0.1.0",
+  "private": true,
   "devDependencies": {
     "mocha": "^8.0.1",
     "serverless-domain-manager": "^4.2.0",
